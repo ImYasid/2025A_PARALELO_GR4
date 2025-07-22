@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2025A_PARALELO_GR4", "2025A_PARALELO_GR4\2025A_PARALELO_GR4.vcxproj", "{CEE58970-566D-4C98-BE79-AB6E715759FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Debug|x64.ActiveCfg = Debug|x64
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Debug|x64.Build.0 = Debug|x64
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Debug|x86.ActiveCfg = Debug|Win32
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Debug|x86.Build.0 = Debug|Win32
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Release|x64.ActiveCfg = Release|x64
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Release|x64.Build.0 = Release|x64
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Release|x86.ActiveCfg = Release|Win32
+		{CEE58970-566D-4C98-BE79-AB6E715759FA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8EDD4DB-63F9-4316-9B07-3DB831366516}
+	EndGlobalSection
+EndGlobal
