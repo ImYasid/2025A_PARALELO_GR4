@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\Sources\glad\src\glad.c">
+    <ClCompile Include="..\2025A_PARALELO_GR4_Stuff\Library\glad.c">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModoPrueba.cpp">
