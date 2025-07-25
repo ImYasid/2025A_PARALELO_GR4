@@ -22,6 +22,10 @@
     <ClCompile Include="..\2025A_PARALELO_GR4_Stuff\Library\glad.c" />
     <ClCompile Include="ModoPrueba.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\shader_exercise16_mloading.fs" />
+    <None Include="shaders\shader_exercise16_mloading.vs" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

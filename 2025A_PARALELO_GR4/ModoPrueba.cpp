@@ -98,27 +98,23 @@ int main()
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
-    camera.MovementSpeed = 12; //Optional. Modify the speed of the camera
+    camera.MovementSpeed = 4; //Optional. Modify the speed of the camera
     // render loop
-    // -----------
     while (!glfwWindowShouldClose(window))
     {
         // per-frame time logic
-        // --------------------
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
         // input
-        // -----
         processInput(window);
 
         // render
-        // ------
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f); // fondo oscuro para noche
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // don't forget to enable shader before setting uniforms
+        // usar shader
         ourShader.use();
 
         // view/projection transformations
@@ -127,26 +123,31 @@ int main()
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
-        // render the loaded model
+        // iluminación nocturna
+        ourShader.setVec3("lightColor", glm::vec3(0.2f, 0.2f, 0.4f)); // luz azul tenue
+        ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f)); // posición de la luz
+        ourShader.setVec3("viewPos", camera.Position);                // posición de la cámara
+        ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f)); // sin emisión por defecto
+
+        // modelo 1: DriftTrack
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.3f));
         ourShader.setMat4("model", model);
         ourModelDRT.Draw(ourShader);
 
-        // Modelo 2: Nebula
+        // modelo 2: Nebula
         glm::mat4 model2 = glm::mat4(1.0f);
-        model2 = glm::translate(model2, glm::vec3(10.0f, 0.0f, 0.0f)); // otro lugar
-        model2 = glm::scale(model2, glm::vec3(100.0f));
+        model2 = glm::translate(model2, glm::vec3(0.0f, 0.0f, 0.0f));
+        model2 = glm::scale(model2, glm::vec3(75.0f));
         ourShader.setMat4("model", model2);
         ourModelnebula.Draw(ourShader);
 
-
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
+        // swap buffers and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
