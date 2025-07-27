@@ -1,0 +1,169 @@
+# Blender 4.5.0 MTL File: 'Sin_nombre.blend'
+# www.blender.org
+
+newmtl lLamborghini_CountachLPI8004_2022BadgeA_Material1
+Ns 227.845840
+Ka 0.681145 0.681145 0.681145
+Ks 0.054095 0.054095 0.054095
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022BadgeA_Material1_baseColor.png
+map_d lLamborghini_CountachLPI8004_2022BadgeA_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022BadgeA_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022Base_Material1
+Ns 66.513947
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.084572 0.084572 0.084572
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl lLamborghini_CountachLPI8004_2022Carbon1_Material1
+Ns 270.399994
+Ka 0.400000 0.400000 0.400000
+Ks 0.025000 0.025000 0.025000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022Carbon1_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022Carbon1_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022Coloured_Material1
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd lLamborghini_CountachLPI8004_2022Coloured_Material1_baseColor.png
+
+newmtl lLamborghini_CountachLPI8004_2022EngineA_Material1
+Ns 178.484299
+Ka 0.876193 0.876193 0.876193
+Ks 0.075429 0.075429 0.075429
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022EngineA_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022EngineA_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022Grille1A_Material1
+Ns 38.789307
+Ka 0.736002 0.736002 0.736002
+Ks 0.054095 0.054095 0.054095
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022Grille1A_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022Grille1A_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022Grille2A_Material1
+Ns 388.132721
+Ka 0.711621 0.711621 0.711621
+Ks 0.048000 0.048000 0.048000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022Grille2A_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022Grille2A_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022InteriorA_Material1
+Ns 86.714935
+Ka 0.796955 0.796955 0.796955
+Ks 0.069334 0.069334 0.069334
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd lLamborghini_CountachLPI8004_2022InteriorA_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022InteriorA_Material1_normal.png
+
+newmtl lLamborghini_CountachLPI8004_2022LightA_Material1
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.090667 0.090667 0.090667
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd lLamborghini_CountachLPI8004_2022LightA_Material1_baseColor.png
+
+newmtl lLamborghini_CountachLPI8004_2022ManufacturerPlateA_Material1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd lLamborghini_CountachLPI8004_2022ManufacturerPlateA_Material1_baseColor.png
+
+newmtl lLamborghini_CountachLPI8004_2022Paint_Material1
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.509566 0.509566 0.509566
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl lLamborghini_CountachLPI8004_2022Window_Material1
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 0.400000
+illum 9
+
+newmtl lLamborghini_CountachLPI8004_2022_CallipersCalliperA_Zon_294ff6
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.197334 0.197334 0.197334
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd lLamborghini_CountachLPI8004_2022_CallipersCalliperA_Zon_294ff6b1_baseColor.png
+
+newmtl lLamborghini_CountachLPI8004_2022_CallipersCalliperBadge_862ed4
+Ns 227.845840
+Ka 0.723812 0.723812 0.723812
+Kd 1.000000 1.000000 1.000000
+Ks 0.044953 0.044953 0.044953
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+
+newmtl lLamborghini_CountachLPI8004_2022_Wheel1A_3D_3DWheel1A_Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.118096 0.118096 0.118096
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd lLamborghini_CountachLPI8004_2022_Wheel1A_3D_3DWheel1A_Material1_baseColor.png
+map_Bump -bm 1.000000 lLamborghini_CountachLPI8004_2022_Wheel1A_3D_3DWheel1A_Material1_normal.png
+
+newmtl red_glass
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 0.250000
+illum 9

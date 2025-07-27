@@ -30,4 +30,27 @@
       <Filter>Archivos de origen</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\vehiculo.hpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\camera.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\mesh.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\model.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader_s.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\stb_image.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

@@ -26,6 +26,15 @@
     <None Include="shaders\shader_exercise16_mloading.fs" />
     <None Include="shaders\shader_exercise16_mloading.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\camera.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\mesh.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\model.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader_s.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\stb_image.h" />
+    <ClInclude Include="..\2025A_PARALELO_GR4_Stuff\include\learnopengl\vehiculo.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

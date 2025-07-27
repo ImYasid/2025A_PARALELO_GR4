@@ -51,7 +51,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Exercise 16 Task 2", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Examen Bimestral", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -91,14 +91,14 @@ int main()
     //Model ourModelrain("models/Rain/RRU.obj");
     Model ourModelDRT("models/DRT/DriftTrack3.obj");
     Model ourModelnebula("models/nebula/Sin_nombre.obj");
-
+    Model ourModelVehiculo("models/vehiculos/Lamborini_countach/Lamborgini_countach.obj");
 
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
-    camera.MovementSpeed = 4; //Optional. Modify the speed of the camera
+	camera.MovementSpeed = 10; //Optional. Puedes modificar la velocidad de la cámara si lo deseas.
     // render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -143,6 +143,13 @@ int main()
         ourShader.setMat4("model", model2);
         ourModelnebula.Draw(ourShader);
 
+		// modelo 3: Vehículo
+		glm::mat4 model3 = glm::mat4(1.0f);
+        model3 = glm::translate(model3, glm::vec3(0.0f, 0.0f, 0.0f));
+        model3 = glm::scale(model3, glm::vec3(5.0f));
+		ourShader.setMat4("model", model3);
+		ourModelVehiculo.Draw(ourShader);
+
         // swap buffers and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -170,6 +177,8 @@ void processInput(GLFWwindow* window)
         camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
+
+
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
