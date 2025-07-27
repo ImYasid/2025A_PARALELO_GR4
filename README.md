@@ -1,5 +1,7 @@
 # 🎮 2025A_PARALELO_GR4 - Proyecto Final de Computación Gráfica
 
+## Examen Bimestral 2: Scene Modeling and Implementation
+
 ## 🏢 Empresa: **Vertex Vision**
 
 ### 🧭 Misión
