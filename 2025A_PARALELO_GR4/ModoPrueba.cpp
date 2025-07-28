@@ -92,6 +92,7 @@ int main()
     Model ourModelDRT("models/DRT/DriftTrack3.obj");
     Model ourModelnebula("models/nebula/Sin_nombre.obj");
     Model ourModelVehiculo("models/vehiculos/Lamborini_countach/Lamborgini_countach.obj");
+    Model ourModelVehiculo1("models/carro1/carro1.obj");
 
 
     // draw in wireframe
@@ -149,6 +150,14 @@ int main()
         model3 = glm::scale(model3, glm::vec3(5.0f));
 		ourShader.setMat4("model", model3);
 		ourModelVehiculo.Draw(ourShader);
+
+        // modelo 4: Vehículo
+        glm::mat4 model4 = glm::mat4(1.0f);
+        model4 = glm::translate(model4, glm::vec3(1.0f, -10.0f, 1.0f));
+        model4 = glm::scale(model4, glm::vec3(2.0f));
+        ourShader.setMat4("model", model4);
+        ourModelVehiculo1.Draw(ourShader);
+
 
         // swap buffers and poll IO events
         glfwSwapBuffers(window);
