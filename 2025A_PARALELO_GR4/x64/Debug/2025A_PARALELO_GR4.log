@@ -5,14 +5,14 @@ C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4_
 C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4_Stuff\include\learnopengl\mesh.h(87,50): warning C4267: 'argumento': conversión de 'size_t' a 'GLsizei'; posible pérdida de datos
   (compilando archivo de origen "ModoPrueba.cpp")
   
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(107,28): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(206,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(207,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(211,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(212,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(214,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(215,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(224,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(98,28): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(225,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(226,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(230,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(231,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(233,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(234,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(241,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 glfw3.lib(init.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(init.obj)' o en 'C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(window.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(window.obj)' o en 'C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(input.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(input.obj)' o en 'C:\Users\fredd\OneDrive\Documentos\GitHub\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
