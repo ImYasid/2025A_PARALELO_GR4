@@ -1,0 +1,130 @@
+# Blender 4.5.0 MTL File: 'None'
+# www.blender.org
+
+newmtl Bancos
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Bancos_baseColor.png
+map_Bump -bm 1.000000 Bancos_normal.png
+
+newmtl CarpetEAssoalho
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd CarpetEAssoalho_baseColor.png
+map_Bump -bm 1.000000 CarpetEAssoalho_normal.png
+
+newmtl ChevetteMaterialLataria
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ChevetteMaterialLataria_baseColor.png
+map_Bump -bm 1.000000 ChevetteMaterialLataria_normal.png
+
+newmtl LogoChevette
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd LogoChevette_baseColor.png
+map_d LogoChevette_baseColor.png
+
+newmtl PainelEacessorios
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd PainelEacessorios_baseColor.png
+map_Bump -bm 1.000000 PainelEacessorios_normal.png
+
+newmtl PeasVariadasExternas
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd PeasVariadasExternas_baseColor.png
+map_d PeasVariadasExternas_baseColor.png
+map_Bump -bm 1.000000 PeasVariadasExternas_normal.png
+
+newmtl PecasInternas111
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd PainelEacessorios_baseColor.png
+map_Bump -bm 1.000000 PainelEacessorios_normal.png
+
+newmtl Pneu
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Pneu_baseColor.png
+map_Bump -bm 1.000000 Pneu_normal.png
+
+newmtl PonteiroVelocimetro
+Ns 34.725494
+Ka 1.000000 1.000000 1.000000
+Kd 0.901961 0.155863 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl PonteirosAmarelo
+Ns 34.725494
+Ka 1.000000 1.000000 1.000000
+Kd 0.979986 0.519516 0.024788
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Rodas
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Rodas_baseColor.png
+map_Bump -bm 1.000000 Rodas_normal.png
+
+newmtl Vidros
+Ns 11.455134
+Ka 0.688770 0.688770 0.688770
+Kd 0.347151 0.347151 0.347151
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 0.171955
+illum 6
