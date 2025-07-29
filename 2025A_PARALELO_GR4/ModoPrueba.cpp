@@ -20,8 +20,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 1000;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 1820;
+const unsigned int SCR_HEIGHT = 980;
 
 // Cámaras para cada jugador
 Camera cameraJugador1(glm::vec3(0.0f, -5.0f, 5.0f));  // Jugador 1
@@ -124,7 +124,7 @@ int main()
         float cameraHeight = 5.0f;
 
         // ==================== JUGADOR 1 (vista superior) ====================
-        glViewport(0, SCR_HEIGHT / 2, SCR_WIDTH, SCR_HEIGHT / 2);
+        glViewport(0, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
         glm::vec3 camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance, cameraHeight, cos(carRotation1) * cameraDistance);
         camPos1.y += 40.0f;
@@ -133,7 +133,8 @@ int main()
         cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
         cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-        glm::mat4 projection = glm::perspective(glm::radians(cameraJugador1.Zoom), (float)SCR_WIDTH / (float)(SCR_HEIGHT / 2), 0.08f, 300.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(cameraJugador1.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
+
         glm::mat4 view = cameraJugador1.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
@@ -172,7 +173,7 @@ int main()
         ourModelVehiculo2.Draw(ourShader);
 
         // ==================== JUGADOR 2 (vista inferior) ====================
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT / 2);
+        glViewport(SCR_WIDTH / 2, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
         glm::vec3 camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance, cameraHeight, cos(carRotation2) * cameraDistance);
         camPos2.y += 40.0f;
@@ -181,7 +182,8 @@ int main()
         cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
         cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-        projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)SCR_WIDTH / (float)(SCR_HEIGHT / 2), 0.08f, 300.0f);
+        projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
+
         view = cameraJugador2.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
