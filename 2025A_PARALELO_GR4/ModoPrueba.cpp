@@ -23,18 +23,29 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 800;
 
-// camera
-Camera camera(glm::vec3(0.0f, -5.0f, 5.0f)); // Posición inicial más alta
+// Cámaras para cada jugador
+Camera cameraJugador1(glm::vec3(0.0f, -5.0f, 5.0f));  // Jugador 1
+Camera cameraJugador2(glm::vec3(0.0f, -5.0f, 5.0f));  // Jugador 2
+
 
 // variables para el control del vehículo
-glm::vec3 carPosition(0.0f, -10.0f, 0.0f); // Y = -10 para que esté sobre la pista
-float carRotation = 0.0f;
-float carSpeed = 0.0f;
+glm::vec3 carPosition1(0.0f, -10.0f, 0.0f);
+float carRotation1 = 0.0f;
+float carSpeed1 = 0.0f;
+
+glm::vec3 carPosition2(5.0f, -10.0f, 0.0f); // Empieza más a la derecha
+float carRotation2 = 0.0f;
+float carSpeed2 = 0.0f;
+
+
 const float maxSpeed = 20.0f;
 const float acceleration = 5.0f;
 const float deceleration = 7.0f;
 const float rotationSpeed = 2.0f;
-glm::vec3 actualCameraPos = camera.Position;
+
+glm::vec3 actualCameraPos1 = cameraJugador1.Position;
+glm::vec3 actualCameraPos2 = cameraJugador2.Position;
+
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -88,7 +99,6 @@ int main()
     // load models
     Model ourModelDRT("models/DRT/DriftTrack3.obj");
     Model ourModelnebula("models/nebula/Sin_nombre.obj");
-   // Model ourModelVehiculo("models/vehiculos/Lamborini_countach/Lamborgini_countach.obj");
     Model ourModelVehiculo1("models/carro1/carro1.obj");
 	Model ourModelVehiculo2("models/carro2/carro1.obj");
 
@@ -110,54 +120,104 @@ int main()
         // usar shader
         ourShader.use();
 
-        // view/projection transformations
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.08f, 300.0f);
-        glm::mat4 view = camera.GetViewMatrix();
+        float cameraDistance = 5.0f;
+        float cameraHeight = 5.0f;
+
+        // ==================== JUGADOR 1 (vista superior) ====================
+        glViewport(0, SCR_HEIGHT / 2, SCR_WIDTH, SCR_HEIGHT / 2);
+
+        glm::vec3 camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance, cameraHeight, cos(carRotation1) * cameraDistance);
+        camPos1.y += 40.0f;
+        actualCameraPos1 = glm::mix(actualCameraPos1, camPos1, 5.0f * deltaTime);
+        cameraJugador1.Position = actualCameraPos1;
+        cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
+        cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        glm::mat4 projection = glm::perspective(glm::radians(cameraJugador1.Zoom), (float)SCR_WIDTH / (float)(SCR_HEIGHT / 2), 0.08f, 300.0f);
+        glm::mat4 view = cameraJugador1.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-
-        // iluminación nocturna
         ourShader.setVec3("lightColor", glm::vec3(0.2f, 0.2f, 0.4f));
         ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
-        ourShader.setVec3("viewPos", camera.Position);
+        ourShader.setVec3("viewPos", cameraJugador1.Position);
         ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
 
-        // modelo 1: DriftTrack
+        // Render modelos
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
         model = glm::scale(model, glm::vec3(0.3f));
         ourShader.setMat4("model", model);
         ourModelDRT.Draw(ourShader);
 
-        // modelo 2: Nebula
-        glm::mat4 model2 = glm::mat4(1.0f);
-        model2 = glm::translate(model2, glm::vec3(0.0f, 0.0f, 0.0f));
-        model2 = glm::scale(model2, glm::vec3(75.0f));
-        ourShader.setMat4("model", model2);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(75.0f));
+        ourShader.setMat4("model", model);
         ourModelnebula.Draw(ourShader);
 
-        // modelo 3: Vehículo (estático)
-       // glm::mat4 model3 = glm::mat4(1.0f);
-       // model3 = glm::translate(model3, glm::vec3(0.0f, -10.0f, 5.0f)); // Ajustado a Y = -10
-      // model3 = glm::scale(model3, glm::vec3(5.0f));
-       // ourShader.setMat4("model", model3);
-       // ourModelVehiculo.Draw(ourShader);
-
-        // modelo 4: Vehículo (controlable)
-        glm::mat4 model4 = glm::mat4(1.0f);
-        model4 = glm::translate(model4, carPosition);
-        model4 = glm::rotate(model4, carRotation, glm::vec3(0.0f, 1.0f, 0.0f));
-        model4 = glm::scale(model4, glm::vec3(0.8f));
-        ourShader.setMat4("model", model4);
+        // Vehículo 1
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, carPosition1);
+        model = glm::rotate(model, carRotation1, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.8f));
+        ourShader.setMat4("model", model);
         ourModelVehiculo1.Draw(ourShader);
 
-		// Modelo 5: Vehiculo (controlable)
-		glm::mat4 model5 = glm::mat4(1.0f);
-		model5 = glm::translate(model5, glm::vec3(10.0f,0.0f,0.0f)+carPosition);
-		model5 = glm::rotate(model5, carRotation, glm::vec3(0.0f, 1.0f, 0.0f));
-		model5 = glm::scale(model5, glm::vec3(0.8f));
-		ourShader.setMat4("model", model5);
-		ourModelVehiculo2.Draw(ourShader);
+        // Vehículo 2
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, carPosition2);
+        model = glm::rotate(model, carRotation2, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.8f));
+        ourShader.setMat4("model", model);
+        ourModelVehiculo2.Draw(ourShader);
+
+        // ==================== JUGADOR 2 (vista inferior) ====================
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT / 2);
+
+        glm::vec3 camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance, cameraHeight, cos(carRotation2) * cameraDistance);
+        camPos2.y += 40.0f;
+        actualCameraPos2 = glm::mix(actualCameraPos2, camPos2, 5.0f * deltaTime);
+        cameraJugador2.Position = actualCameraPos2;
+        cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
+        cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)SCR_WIDTH / (float)(SCR_HEIGHT / 2), 0.08f, 300.0f);
+        view = cameraJugador2.GetViewMatrix();
+        ourShader.setMat4("projection", projection);
+        ourShader.setMat4("view", view);
+        ourShader.setVec3("lightColor", glm::vec3(0.2f, 0.2f, 0.4f));
+        ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
+        ourShader.setVec3("viewPos", cameraJugador2.Position);
+        ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+
+        // Render modelos (otra vez, porque es otra vista)
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.3f));
+        ourShader.setMat4("model", model);
+        ourModelDRT.Draw(ourShader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(75.0f));
+        ourShader.setMat4("model", model);
+        ourModelnebula.Draw(ourShader);
+
+        // Vehículo 1
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, carPosition1);
+        model = glm::rotate(model, carRotation1, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.8f));
+        ourShader.setMat4("model", model);
+        ourModelVehiculo1.Draw(ourShader);
+
+        // Vehículo 2
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, carPosition2);
+        model = glm::rotate(model, carRotation2, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.8f));
+        ourShader.setMat4("model", model);
+        ourModelVehiculo2.Draw(ourShader);
 
         // swap buffers and poll IO events
         glfwSwapBuffers(window);
@@ -174,52 +234,99 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    // Control del vehículo
+    // Controles jugador 1 - WASD
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        carSpeed += acceleration * deltaTime;
-        if (carSpeed > maxSpeed) carSpeed = maxSpeed;
+        carSpeed1 += acceleration * deltaTime;
+        if (carSpeed1 > maxSpeed) carSpeed1 = maxSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        carSpeed -= acceleration * deltaTime;
-        if (carSpeed < -maxSpeed / 2) carSpeed = -maxSpeed / 2;
+        carSpeed1 -= acceleration * deltaTime;
+        if (carSpeed1 < -maxSpeed / 2) carSpeed1 = -maxSpeed / 2;
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        carRotation += rotationSpeed * deltaTime;
+        carRotation1 += rotationSpeed * deltaTime;
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        carRotation -= rotationSpeed * deltaTime;
+        carRotation1 -= rotationSpeed * deltaTime;
     }
+
+    // Controles jugador 2 - Flechas
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        carSpeed2 += acceleration * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        carSpeed2 -= acceleration * deltaTime;
+        if (carSpeed2 < -maxSpeed / 2) carSpeed2 = -maxSpeed / 2;
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+        carRotation2 += rotationSpeed * deltaTime;
+    }
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+        carRotation2 -= rotationSpeed * deltaTime;
+    }
+
 
     // Deceleración cuando no se presionan teclas
     if (glfwGetKey(window, GLFW_KEY_W) != GLFW_PRESS &&
         glfwGetKey(window, GLFW_KEY_S) != GLFW_PRESS) {
-        if (carSpeed > 0) {
-            carSpeed -= deceleration * deltaTime;
-            if (carSpeed < 0) carSpeed = 0;
+        if (carSpeed1 > 0) {
+            carSpeed1 -= deceleration * deltaTime;
+            if (carSpeed1 < 0) carSpeed1 = 0;
         }
-        else if (carSpeed < 0) {
-            carSpeed += deceleration * deltaTime;
-            if (carSpeed > 0) carSpeed = 0;
+        else if (carSpeed1 < 0) {
+            carSpeed1 += deceleration * deltaTime;
+            if (carSpeed1 > 0) carSpeed1 = 0;
+        }
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_UP) != GLFW_PRESS &&
+        glfwGetKey(window, GLFW_KEY_DOWN) != GLFW_PRESS) {
+        if (carSpeed2 > 0) {
+            carSpeed2 -= deceleration * deltaTime;
+            if (carSpeed2 < 0) carSpeed2 = 0;
+        }
+        else if (carSpeed2 < 0) {
+            carSpeed2 += deceleration * deltaTime;
+            if (carSpeed2 > 0) carSpeed2 = 0;
         }
     }
 
     // Actualizar posición del carro (solo en X y Z, Y se mantiene en -10)
-    carPosition.x += sin(carRotation) * carSpeed * deltaTime;
-    carPosition.z += cos(carRotation) * carSpeed * deltaTime;
+    carPosition1.x += sin(carRotation1) * carSpeed1 * deltaTime;
+    carPosition1.z += cos(carRotation1) * carSpeed1 * deltaTime;
 
-    // Configurar cámara en tercera persona
-    float cameraDistance = 5.0f;
-    float cameraHeight = 5.0f;
-    glm::vec3 cameraPos = carPosition - glm::vec3(sin(carRotation) * cameraDistance,
-        cameraHeight,
-        cos(carRotation) * cameraDistance);
-    cameraPos.y += 40.0f; // Ajuste adicional de altura
+    carPosition2.x += sin(carRotation2) * carSpeed2 * deltaTime;
+    carPosition2.z += cos(carRotation2) * carSpeed2 * deltaTime;
 
-    // Suavizado de movimiento de cámara
-    actualCameraPos = glm::mix(actualCameraPos, cameraPos, 5.0f * deltaTime);
-    camera.Position = actualCameraPos;
-    camera.Front = glm::normalize(carPosition - camera.Position);
-    camera.Up = glm::vec3(0.0f, 1.0f, 0.0f); // Vector up normalizado
+    // ==== JUGADOR 1 ====
+    float cameraDistance1 = 5.0f;
+    float cameraHeight1 = 5.0f;
+    glm::vec3 targetCameraPos1 = carPosition1 - glm::vec3(
+        sin(carRotation1) * cameraDistance1,
+        cameraHeight1,
+        cos(carRotation1) * cameraDistance1);
+    targetCameraPos1.y += 40.0f;
+
+    actualCameraPos1 = glm::mix(actualCameraPos1, targetCameraPos1, 5.0f * deltaTime);
+
+    cameraJugador1.Position = actualCameraPos1;
+    cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
+    cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    // ==== JUGADOR 2 ====
+    float cameraDistance2 = 5.0f;
+    float cameraHeight2 = 5.0f;
+    glm::vec3 targetCameraPos2 = carPosition2 - glm::vec3(
+        sin(carRotation2) * cameraDistance2,
+        cameraHeight2,
+        cos(carRotation2) * cameraDistance2);
+    targetCameraPos2.y += 40.0f;
+
+    actualCameraPos2 = glm::mix(actualCameraPos2, targetCameraPos2, 5.0f * deltaTime);
+
+    cameraJugador2.Position = actualCameraPos2;
+    cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
+    cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -242,10 +349,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
-    camera.ProcessMouseMovement(xoffset, yoffset);
+    cameraJugador1.ProcessMouseMovement(xoffset, yoffset);
+    cameraJugador2.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    camera.ProcessMouseScroll(yoffset);
+    cameraJugador1.ProcessMouseScroll(yoffset);
+    cameraJugador2.ProcessMouseScroll(yoffset);
 }
