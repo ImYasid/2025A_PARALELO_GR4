@@ -19,6 +19,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
+// primera persona
+bool vistaPrimeraPersona1 = false;
+bool vistaPrimeraPersona2 = false;
+bool cambiarVistaPresionado = false;
+
 // settings
 const unsigned int SCR_WIDTH = 1820;
 const unsigned int SCR_HEIGHT = 980;
@@ -128,15 +133,48 @@ int main()
         // ==================== JUGADOR 1 (vista superior) ====================
         glViewport(0, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
-        glm::vec3 camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance1, cameraHeight, cos(carRotation1) * cameraDistance1);
-        camPos1.y += 40.0f;
+        glm::vec3 camPos1;
+
+        if (vistaPrimeraPersona1) {
+            // Colocamos la cámara justo encima de la posición del carro
+            glm::vec3 arriba(0.0f, 1.2f, 0.0f);  // Ajusta la altura si es necesario
+
+            // Alinea la dirección del carro
+            glm::vec3 adelante = glm::vec3(-sin(carRotation1), 0.0f, -cos(carRotation1)) * -2.0f;  // Dirección hacia adelante del carro
+            glm::vec3 aLaIzquierda = glm::vec3(0.0f, 0.0f, 0.0f);
+
+            // Establece la posición de la cámara en la primera persona
+            camPos1 = carPosition1 + arriba + adelante + aLaIzquierda;
+
+            // No interpolar en primera persona para evitar el retroceso
+            actualCameraPos1 = camPos1;
+
+        }
+        else {
+            // Cámara en tercera persona: Interpolación suave
+            camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance1, cameraHeight, cos(carRotation1) * cameraDistance1);
+            camPos1.y += 40.0f;
+            actualCameraPos1 = glm::mix(actualCameraPos1, camPos1, 5.0f * deltaTime);
+            cameraJugador1.Position = actualCameraPos1;
+            cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
+            cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+        }
+
         actualCameraPos1 = glm::mix(actualCameraPos1, camPos1, 5.0f * deltaTime);
         cameraJugador1.Position = actualCameraPos1;
-        cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
+
+
+        if (vistaPrimeraPersona1) {
+            cameraJugador1.Front = glm::vec3(sin(carRotation1), 0.0f, cos(carRotation1)); // mira hacia adelante según rotación
+        }
+        else {
+            cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position); // sigue mirando al carro
+        }
         cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
-
+        
+        
+        
         glm::mat4 projection = glm::perspective(glm::radians(cameraJugador1.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
-
         glm::mat4 view = cameraJugador1.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
@@ -144,6 +182,7 @@ int main()
         ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
         ourShader.setVec3("viewPos", cameraJugador1.Position);
         ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+
 
         // Render modelos
         glm::mat4 model = glm::mat4(1.0f);
@@ -177,15 +216,50 @@ int main()
         // ==================== JUGADOR 2 (vista inferior) ====================
         glViewport(SCR_WIDTH / 2, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
-        glm::vec3 camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance2, cameraHeight, cos(carRotation2) * cameraDistance2);
-        camPos2.y += 40.0f;
+        glm::vec3 camPos2;
+
+        if (vistaPrimeraPersona2) {
+            // Colocamos la cámara justo encima de la posición del carro
+            glm::vec3 arriba(0.0f, 1.2f, 0.0f);  // Ajusta la altura si es necesario
+
+            // Alinea la dirección del carro
+            glm::vec3 adelante = glm::vec3(-sin(carRotation2), 0.0f, -cos(carRotation2));  // Dirección hacia adelante del carro
+            glm::vec3 aLaIzquierda = glm::vec3(0.0f, 0.0f, 0.0f);
+
+            // Aumenta la distancia al capó
+            adelante *= -2.0f;  // Aumenta la distancia de la cámara al capó
+
+            // Establece la posición de la cámara en la primera persona
+            camPos2 = carPosition2 + arriba + adelante + aLaIzquierda;
+
+            // No interpolar en primera persona para evitar el retroceso
+            actualCameraPos2 = camPos2;
+
+        }
+        else {
+            // Cámara en tercera persona: Interpolación suave
+            camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance2, cameraHeight, cos(carRotation2) * cameraDistance2);
+            camPos2.y += 40.0f;
+            actualCameraPos2 = glm::mix(actualCameraPos2, camPos2, 5.0f * deltaTime);
+            cameraJugador2.Position = actualCameraPos2;
+            cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
+            cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
+        }
+
         actualCameraPos2 = glm::mix(actualCameraPos2, camPos2, 5.0f * deltaTime);
         cameraJugador2.Position = actualCameraPos2;
-        cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
+
+
+        if (vistaPrimeraPersona2) {
+            cameraJugador2.Front = glm::vec3(sin(carRotation2), 0.0f, cos(carRotation2)); // mira hacia adelante según rotación
+        }
+        else {
+            cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position); // sigue mirando al carro
+        }
         cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-        projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
 
+        projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
         view = cameraJugador2.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
@@ -193,6 +267,7 @@ int main()
         ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
         ourShader.setVec3("viewPos", cameraJugador2.Position);
         ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+
 
         // Render modelos (otra vez, porque es otra vista)
         model = glm::mat4(1.0f);
@@ -284,6 +359,25 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
+	// Cambiar vista al presionar 'C' (cambiar entre primera y tercera persona)
+    
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && !cambiarVistaPresionado)
+    {
+        // Cambiar vista para el jugador 1
+        vistaPrimeraPersona1 = !vistaPrimeraPersona1;
+
+        // Cambiar vista para el jugador 2 
+        vistaPrimeraPersona2 = !vistaPrimeraPersona2;
+
+        cambiarVistaPresionado = true;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_RELEASE)
+    {
+        cambiarVistaPresionado = false;
+    }
+    
+   
     // Controles jugador 1 - WASD
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         carSpeed1 += acceleration * deltaTime;
@@ -350,9 +444,6 @@ void processInput(GLFWwindow* window)
     float cameraDistance = glm::mix(6.0f, 12.0f, glm::clamp(abs(carSpeed1) / maxSpeed, 0.0f, 1.0f));
 
     // ==== JUGADOR 1 ====
-    //float cameraDistance1 = 5.0f;
-    //float cameraHeight1 = 5.0f;
-    //float cameraDistance = 10.0f; // más lejos que antes
     float cameraHeight = -2.0f;    // más baja para una vista más horizontal
 
     glm::vec3 behindDirection = glm::normalize(glm::vec3(
