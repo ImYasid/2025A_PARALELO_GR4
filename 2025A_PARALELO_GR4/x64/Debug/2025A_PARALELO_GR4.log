@@ -6,14 +6,14 @@ C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_
   (compilando archivo de origen "ModoPrueba.cpp")
   
 C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(110,28): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(387,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(388,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(392,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(393,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(395,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(396,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(404,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(405,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(400,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(401,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(405,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(406,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(408,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(409,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(417,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(418,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 glfw3.lib(init.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(init.obj)' o en 'C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(window.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(window.obj)' o en 'C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 glfw3.lib(input.obj) : warning LNK4099: no se encontró PDB 'glfw3.pdb' con 'glfw3.lib(input.obj)' o en 'C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\glfw3.pdb'; se vinculará el objeto sin tener en cuenta información de depuración

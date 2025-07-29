@@ -38,9 +38,9 @@ float carRotation2 = 0.0f;
 float carSpeed2 = 0.0f;
 
 
-const float maxSpeed = 15.0f;
-const float acceleration = 5.0f;
-const float deceleration = 12.0f;
+const float maxSpeed = 7.0f;
+const float acceleration = 4.0f;
+const float deceleration = 15.0f;
 const float rotationSpeed = 2.0f;
 
 glm::vec3 actualCameraPos1 = cameraJugador1.Position;
@@ -121,13 +121,14 @@ int main()
         // usar shader
         ourShader.use();
 
-        float cameraDistance = 5.0f;
+        float cameraDistance1 = glm::mix(6.0f, 12.0f, glm::clamp(abs(carSpeed1) / maxSpeed, 0.0f, 1.0f));
+        float cameraDistance2 = glm::mix(6.0f, 12.0f, glm::clamp(abs(carSpeed2) / maxSpeed, 0.0f, 1.0f));
         float cameraHeight = 5.0f;
 
         // ==================== JUGADOR 1 (vista superior) ====================
         glViewport(0, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
-        glm::vec3 camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance, cameraHeight, cos(carRotation1) * cameraDistance);
+        glm::vec3 camPos1 = carPosition1 - glm::vec3(sin(carRotation1) * cameraDistance1, cameraHeight, cos(carRotation1) * cameraDistance1);
         camPos1.y += 40.0f;
         actualCameraPos1 = glm::mix(actualCameraPos1, camPos1, 5.0f * deltaTime);
         cameraJugador1.Position = actualCameraPos1;
@@ -176,7 +177,7 @@ int main()
         // ==================== JUGADOR 2 (vista inferior) ====================
         glViewport(SCR_WIDTH / 2, 0, SCR_WIDTH / 2, SCR_HEIGHT);
 
-        glm::vec3 camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance, cameraHeight, cos(carRotation2) * cameraDistance);
+        glm::vec3 camPos2 = carPosition2 - glm::vec3(sin(carRotation2) * cameraDistance2, cameraHeight, cos(carRotation2) * cameraDistance2);
         camPos2.y += 40.0f;
         actualCameraPos2 = glm::mix(actualCameraPos2, camPos2, 5.0f * deltaTime);
         cameraJugador2.Position = actualCameraPos2;
@@ -223,43 +224,49 @@ int main()
         ourModelVehiculo2.Draw(ourShader);
 
         // === COLISIONES ===
-        // Model matrix del vehículo 1
-        glm::mat4 car1ModelMatrix = glm::mat4(1.0f);
-        car1ModelMatrix = glm::translate(car1ModelMatrix, carPosition1);
-        car1ModelMatrix = glm::rotate(car1ModelMatrix, carRotation1, glm::vec3(0.0f, 1.0f, 0.0f));
-        car1ModelMatrix = glm::scale(car1ModelMatrix, glm::vec3(0.8f));
+// Matrices de transformación para cada modelo
+        glm::mat4 car1Matrix = glm::mat4(1.0f);
+        car1Matrix = glm::translate(car1Matrix, carPosition1);
+        car1Matrix = glm::rotate(car1Matrix, carRotation1, glm::vec3(0.0f, 1.0f, 0.0f));
+        car1Matrix = glm::scale(car1Matrix, glm::vec3(0.8f));
 
-        // Model matrix del vehículo 2
-        glm::mat4 car2ModelMatrix = glm::mat4(1.0f);
-        car2ModelMatrix = glm::translate(car2ModelMatrix, carPosition2);
-        car2ModelMatrix = glm::rotate(car2ModelMatrix, carRotation2, glm::vec3(0.0f, 1.0f, 0.0f));
-        car2ModelMatrix = glm::scale(car2ModelMatrix, glm::vec3(0.8f));
+        glm::mat4 car2Matrix = glm::mat4(1.0f);
+        car2Matrix = glm::translate(car2Matrix, carPosition2);
+        car2Matrix = glm::rotate(car2Matrix, carRotation2, glm::vec3(0.0f, 1.0f, 0.0f));
+        car2Matrix = glm::scale(car2Matrix, glm::vec3(0.8f));
 
-        // Model matrix de la pista (DRT)
-        glm::mat4 trackModelMatrix = glm::mat4(1.0f);
-        trackModelMatrix = glm::translate(trackModelMatrix, glm::vec3(0.0f, -10.0f, 0.0f));
-        trackModelMatrix = glm::scale(trackModelMatrix, glm::vec3(0.3f));
+        glm::mat4 drtMatrix = glm::mat4(1.0f);
+        drtMatrix = glm::translate(drtMatrix, glm::vec3(0.0f, -10.0f, 0.0f)); // Ajusta según tu escena
+        drtMatrix = glm::scale(drtMatrix, glm::vec3(0.3f));
+
+        glm::mat4 nebulaMatrix = glm::mat4(1.0f);
+        nebulaMatrix = glm::translate(nebulaMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+        nebulaMatrix = glm::scale(nebulaMatrix, glm::vec3(75.0f));
 
         // Obtener bounding boxes transformadas
-        BoundingBox car1Box = ourModelVehiculo1.getTransformedBoundingBox(car1ModelMatrix);
-        BoundingBox car2Box = ourModelVehiculo2.getTransformedBoundingBox(car2ModelMatrix);
-        BoundingBox trackBox = ourModelDRT.getTransformedBoundingBox(trackModelMatrix);
+        BoundingBox car1Box = ourModelVehiculo1.getTransformedBoundingBox(car1Matrix);
+        BoundingBox car2Box = ourModelVehiculo2.getTransformedBoundingBox(car2Matrix);
+        BoundingBox drtBox = ourModelDRT.getTransformedBoundingBox(drtMatrix);
 
-        // Verificar colisiones
+        // 1. Colisión entre vehículos
         if (Model::checkCollision(car1Box, car2Box)) {
-            // Aplicar rebote o detener los autos
+            // Física simple de rebote
             carSpeed1 = -carSpeed1 * 0.5f;
             carSpeed2 = -carSpeed2 * 0.5f;
         }
 
-        if (!Model::checkCollision(car1Box, trackBox)) {
-            // Reducir velocidad cuando está fuera de pista
-            carSpeed1 *= 0.95f;
+        // 2. Colisión vehículos con pista (DRT)
+        bool car1OnTrack = Model::checkCollision(car1Box, drtBox);
+        bool car2OnTrack = Model::checkCollision(car2Box, drtBox);
+
+        if (!car1OnTrack) {
+            std::cout << "¡Auto 1 fuera de pista (DRT)!" << std::endl;
+            carSpeed1 *= 0.95f; // Reducir velocidad fuera de pista
         }
 
-        if (!Model::checkCollision(car2Box, trackBox)) {
-            // Reducir velocidad cuando está fuera de pista
-            carSpeed2 *= 0.95f;
+        if (!car2OnTrack) {
+            std::cout << "¡Auto 2 fuera de pista (DRT)!" << std::endl;
+            carSpeed2 *= 0.95f; // Reducir velocidad fuera de pista
         }
 
         // swap buffers and poll IO events
@@ -340,34 +347,43 @@ void processInput(GLFWwindow* window)
     carPosition2.x += sin(carRotation2) * carSpeed2 * deltaTime;
     carPosition2.z += cos(carRotation2) * carSpeed2 * deltaTime;
 
-    // ==== JUGADOR 1 ====
-    float cameraDistance1 = 5.0f;
-    float cameraHeight1 = 5.0f;
-    glm::vec3 targetCameraPos1 = carPosition1 - glm::vec3(
-        sin(carRotation1) * cameraDistance1,
-        cameraHeight1,
-        cos(carRotation1) * cameraDistance1);
-    targetCameraPos1.y += 40.0f;
+    float cameraDistance = glm::mix(6.0f, 12.0f, glm::clamp(abs(carSpeed1) / maxSpeed, 0.0f, 1.0f));
 
-    actualCameraPos1 = glm::mix(actualCameraPos1, targetCameraPos1, 5.0f * deltaTime);
+    // ==== JUGADOR 1 ====
+    //float cameraDistance1 = 5.0f;
+    //float cameraHeight1 = 5.0f;
+    //float cameraDistance = 10.0f; // más lejos que antes
+    float cameraHeight = -2.0f;    // más baja para una vista más horizontal
+
+    glm::vec3 behindDirection = glm::normalize(glm::vec3(
+        sin(carRotation1),
+        0.0f,
+        cos(carRotation1)
+    ));
+    glm::vec3 targetCameraPos = carPosition1 - behindDirection * cameraDistance;
+    targetCameraPos.y += cameraHeight;
+
+    actualCameraPos1 = glm::mix(actualCameraPos1, targetCameraPos, 5.0f * deltaTime);
 
     cameraJugador1.Position = actualCameraPos1;
-    cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position);
+    cameraJugador1.Front = glm::normalize(carPosition1 + glm::vec3(0.0f, 1.5f, 0.0f) - actualCameraPos1);  // Mira al carro, ligeramente arriba
     cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
     // ==== JUGADOR 2 ====
-    float cameraDistance2 = 5.0f;
-    float cameraHeight2 = 5.0f;
-    glm::vec3 targetCameraPos2 = carPosition2 - glm::vec3(
-        sin(carRotation2) * cameraDistance2,
-        cameraHeight2,
-        cos(carRotation2) * cameraDistance2);
-    targetCameraPos2.y += 40.0f;
+    float cameraHeight2 = -2.0f;    // más baja para una vista más horizontal
+
+    glm::vec3 behindDirection2 = glm::normalize(glm::vec3(
+        sin(carRotation2),
+        0.0f,
+        cos(carRotation2)
+    ));
+    glm::vec3 targetCameraPos2 = carPosition2 - behindDirection2 * cameraDistance;
+    targetCameraPos2.y += cameraHeight2;
 
     actualCameraPos2 = glm::mix(actualCameraPos2, targetCameraPos2, 5.0f * deltaTime);
 
     cameraJugador2.Position = actualCameraPos2;
-    cameraJugador2.Front = glm::normalize(carPosition2 - cameraJugador2.Position);
+    cameraJugador2.Front = glm::normalize(carPosition2 + glm::vec3(0.0f, 1.5f, 0.0f) - actualCameraPos2);  // Mira al carro, ligeramente arriba
     cameraJugador2.Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 }
