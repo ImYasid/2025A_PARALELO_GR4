@@ -1,1 +1,16 @@
-﻿  2025A_PARALELO_GR4.vcxproj -> D:\EPN\Quinto\Computacion grafica\Prueba_Bimestral\2025A_PARALELO_GR4\x64\Debug\2025A_PARALELO_GR4.exe
+﻿  ModoPrueba.cpp
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader.h(55,40): warning C4101: 'e': variable local sin referencia
+  (compilando archivo de origen "ModoPrueba.cpp")
+  
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4_Stuff\include\learnopengl\mesh.h(87,50): warning C4267: 'argumento': conversión de 'size_t' a 'GLsizei'; posible pérdida de datos
+  (compilando archivo de origen "ModoPrueba.cpp")
+  
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(99,28): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(234,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(235,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(239,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(240,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(242,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(243,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(250,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+  2025A_PARALELO_GR4.vcxproj -> C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\2025A_PARALELO_GR4.exe
