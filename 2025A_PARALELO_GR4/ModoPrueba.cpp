@@ -24,8 +24,8 @@ const unsigned int SCR_WIDTH = 1820;
 const unsigned int SCR_HEIGHT = 980;
 
 // Cámaras para cada jugador
-Camera cameraJugador1(glm::vec3(0.0f, -5.0f, 5.0f));  // Jugador 1
-Camera cameraJugador2(glm::vec3(0.0f, -5.0f, 5.0f));  // Jugador 2
+Camera cameraJugador1(glm::vec3(3.5f, -10.0f, 5.0f));  // Jugador 1
+Camera cameraJugador2(glm::vec3(3.5f, -5.0f, 5.0f));  // Jugador 2
 
 
 // variables para el control del vehículo
@@ -38,9 +38,9 @@ float carRotation2 = 0.0f;
 float carSpeed2 = 0.0f;
 
 
-const float maxSpeed = 20.0f;
+const float maxSpeed = 15.0f;
 const float acceleration = 5.0f;
-const float deceleration = 7.0f;
+const float deceleration = 12.0f;
 const float rotationSpeed = 2.0f;
 
 glm::vec3 actualCameraPos1 = cameraJugador1.Position;
@@ -101,6 +101,7 @@ int main()
     Model ourModelnebula("models/nebula/Sin_nombre.obj");
     Model ourModelVehiculo1("models/carro1/carro1.obj");
 	Model ourModelVehiculo2("models/carro2/carro1.obj");
+
 
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -220,6 +221,46 @@ int main()
         model = glm::scale(model, glm::vec3(0.8f));
         ourShader.setMat4("model", model);
         ourModelVehiculo2.Draw(ourShader);
+
+        // === COLISIONES ===
+        // Model matrix del vehículo 1
+        glm::mat4 car1ModelMatrix = glm::mat4(1.0f);
+        car1ModelMatrix = glm::translate(car1ModelMatrix, carPosition1);
+        car1ModelMatrix = glm::rotate(car1ModelMatrix, carRotation1, glm::vec3(0.0f, 1.0f, 0.0f));
+        car1ModelMatrix = glm::scale(car1ModelMatrix, glm::vec3(0.8f));
+
+        // Model matrix del vehículo 2
+        glm::mat4 car2ModelMatrix = glm::mat4(1.0f);
+        car2ModelMatrix = glm::translate(car2ModelMatrix, carPosition2);
+        car2ModelMatrix = glm::rotate(car2ModelMatrix, carRotation2, glm::vec3(0.0f, 1.0f, 0.0f));
+        car2ModelMatrix = glm::scale(car2ModelMatrix, glm::vec3(0.8f));
+
+        // Model matrix de la pista (DRT)
+        glm::mat4 trackModelMatrix = glm::mat4(1.0f);
+        trackModelMatrix = glm::translate(trackModelMatrix, glm::vec3(0.0f, -10.0f, 0.0f));
+        trackModelMatrix = glm::scale(trackModelMatrix, glm::vec3(0.3f));
+
+        // Obtener bounding boxes transformadas
+        BoundingBox car1Box = ourModelVehiculo1.getTransformedBoundingBox(car1ModelMatrix);
+        BoundingBox car2Box = ourModelVehiculo2.getTransformedBoundingBox(car2ModelMatrix);
+        BoundingBox trackBox = ourModelDRT.getTransformedBoundingBox(trackModelMatrix);
+
+        // Verificar colisiones
+        if (Model::checkCollision(car1Box, car2Box)) {
+            // Aplicar rebote o detener los autos
+            carSpeed1 = -carSpeed1 * 0.5f;
+            carSpeed2 = -carSpeed2 * 0.5f;
+        }
+
+        if (!Model::checkCollision(car1Box, trackBox)) {
+            // Reducir velocidad cuando está fuera de pista
+            carSpeed1 *= 0.95f;
+        }
+
+        if (!Model::checkCollision(car2Box, trackBox)) {
+            // Reducir velocidad cuando está fuera de pista
+            carSpeed2 *= 0.95f;
+        }
 
         // swap buffers and poll IO events
         glfwSwapBuffers(window);

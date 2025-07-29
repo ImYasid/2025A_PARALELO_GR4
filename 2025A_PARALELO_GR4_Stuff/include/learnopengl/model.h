@@ -18,6 +18,11 @@ using namespace std;
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
+struct BoundingBox {
+    glm::vec3 min;
+    glm::vec3 max;
+};
+
 class Model
 {
 public:
@@ -25,6 +30,44 @@ public:
     vector<Mesh>    meshes;
     string directory;
     bool gammaCorrection;
+
+    BoundingBox boundingBox;
+
+    BoundingBox getLocalBoundingBox() const { return boundingBox; }
+
+    // En la clase Model
+    BoundingBox getTransformedBoundingBox(const glm::mat4& modelMatrix) const {
+        glm::vec3 corners[8] = {
+            {boundingBox.min.x, boundingBox.min.y, boundingBox.min.z},
+            {boundingBox.max.x, boundingBox.min.y, boundingBox.min.z},
+            {boundingBox.min.x, boundingBox.max.y, boundingBox.min.z},
+            {boundingBox.max.x, boundingBox.max.y, boundingBox.min.z},
+            {boundingBox.min.x, boundingBox.min.y, boundingBox.max.z},
+            {boundingBox.max.x, boundingBox.min.y, boundingBox.max.z},
+            {boundingBox.min.x, boundingBox.max.y, boundingBox.max.z},
+            {boundingBox.max.x, boundingBox.max.y, boundingBox.max.z}
+        };
+
+        glm::vec3 newMin = glm::vec3(modelMatrix * glm::vec4(corners[0], 1.0f));
+        glm::vec3 newMax = newMin;
+
+        for (int i = 1; i < 8; i++) {
+            glm::vec3 transformed = glm::vec3(modelMatrix * glm::vec4(corners[i], 1.0f));
+            newMin = glm::min(newMin, transformed);
+            newMax = glm::max(newMax, transformed);
+        }
+
+        return { newMin, newMax };
+    }
+
+    static bool checkCollision(const BoundingBox& a, const BoundingBox& b) {
+        return (
+            a.min.x <= b.max.x && a.max.x >= b.min.x &&
+            a.min.y <= b.max.y && a.max.y >= b.min.y &&
+            a.min.z <= b.max.z && a.max.z >= b.min.z
+            );
+    }
+
 
     Model(string const& path, bool gamma = false) : gammaCorrection(gamma) {
         loadModel(path);
@@ -57,6 +100,20 @@ private:
         }
         directory = path.substr(0, path.find_last_of('/'));
         processNode(scene->mRootNode, scene);
+        // Calcular bounding box general del modelo
+        glm::vec3 min(FLT_MAX);
+        glm::vec3 max(-FLT_MAX);
+
+        for (const auto& mesh : meshes) {
+            for (const auto& vertex : mesh.vertices) {
+                min = glm::min(min, vertex.Position);
+                max = glm::max(max, vertex.Position);
+            }
+        }
+
+        boundingBox.min = min;
+        boundingBox.max = max;
+
     }
 
     void processNode(aiNode* node, const aiScene* scene) {
@@ -68,6 +125,8 @@ private:
             processNode(node->mChildren[i], scene);
         }
     }
+
+
 
     Mesh processMesh(aiMesh* mesh, const aiScene* scene) {
         vector<Vertex> vertices;
@@ -182,5 +241,6 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
     }
     return textureID;
 }
+
 
 #endif
