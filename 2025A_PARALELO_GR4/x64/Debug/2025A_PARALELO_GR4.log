@@ -1,1 +1,19 @@
-﻿  2025A_PARALELO_GR4.vcxproj -> C:\Users\User\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\2025A_PARALELO_GR4.exe
+﻿  ModoPrueba.cpp
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4_Stuff\include\learnopengl\shader.h(55,40): warning C4101: 'e': variable local sin referencia
+  (compilando archivo de origen "ModoPrueba.cpp")
+  
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4_Stuff\include\learnopengl\mesh.h(87,50): warning C4267: 'argumento': conversión de 'size_t' a 'GLsizei'; posible pérdida de datos
+  (compilando archivo de origen "ModoPrueba.cpp")
+  
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(115,28): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(334,26): warning C4566: el carácter representado por el nombre de carácter universal '\u02C7' no se puede representar en la página de códigos actual (1252)
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(339,26): warning C4566: el carácter representado por el nombre de carácter universal '\u02C7' no se puede representar en la página de códigos actual (1252)
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(487,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(488,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(492,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(493,19): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(495,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(496,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(504,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\2025A_PARALELO_GR4\ModoPrueba.cpp(505,39): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+  2025A_PARALELO_GR4.vcxproj -> C:\Users\Michael\Documents\Visual Studio 2022\2025A_PARALELO_GR4\x64\Debug\2025A_PARALELO_GR4.exe
