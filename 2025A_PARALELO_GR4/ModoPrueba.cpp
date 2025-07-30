@@ -24,6 +24,11 @@ bool vistaPrimeraPersona1 = false;
 bool vistaPrimeraPersona2 = false;
 bool cambiarVistaPresionado = false;
 
+//Prender luces
+bool lightsOn = true;  // Variable para saber si las luces están encendidas o apagadas
+bool toggleLightsPressed = false;  // Para asegurarse de que no se cambie el estado repetidamente
+
+
 // settings
 const unsigned int SCR_WIDTH = 1820;
 const unsigned int SCR_HEIGHT = 980;
@@ -129,13 +134,13 @@ int main()
         glm::vec3 dir1 = glm::normalize(glm::vec3(sin(carRotation1), 0.0f, cos(carRotation1)));
         glm::vec3 dir2 = glm::normalize(glm::vec3(sin(carRotation2), 0.0f, cos(carRotation2)));
 
-        glm::vec3 side1 = glm::normalize(glm::cross(dir1, glm::vec3(0, 1, 0))) * 0.5f;
-        glm::vec3 side2 = glm::normalize(glm::cross(dir2, glm::vec3(0, 1, 0))) * 0.5f;
+        glm::vec3 side1 = glm::normalize(glm::cross(dir1, glm::vec3(0, 1, 0))) * 0.3f;
+        glm::vec3 side2 = glm::normalize(glm::cross(dir2, glm::vec3(0, 1, 0))) * 0.3f;
 
-        glm::vec3 spotlightPos1Left = carPosition1 + side1 + glm::vec3(0, 0.8f, 0);
-        glm::vec3 spotlightPos1Right = carPosition1 - side1 + glm::vec3(0, 0.8f, 0);
-        glm::vec3 spotlightPos2Left = carPosition2 + side2 + glm::vec3(0, 0.8f, 0);
-        glm::vec3 spotlightPos2Right = carPosition2 - side2 + glm::vec3(0, 0.8f, 0);
+        glm::vec3 spotlightPos1Left = carPosition1 + side1 + glm::vec3(0.3f, 1.0f, 0);
+        glm::vec3 spotlightPos1Right = carPosition1 - side1 + glm::vec3(0.3f, 1.0f, 0);
+        glm::vec3 spotlightPos2Left = carPosition2 + side2 + glm::vec3(0.3f, 1.0f, 0);
+        glm::vec3 spotlightPos2Right = carPosition2 - side2 + glm::vec3(0.3f, 1.0f, 0);
 
         // usar shader
         ourShader.use();
@@ -177,7 +182,7 @@ int main()
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
-        // ENVIAR DATOS DE LUCES AL SHADER (¡NUEVO! - para vista jugador 1)
+        // Enviar datos de luces al shader
         ourShader.setVec3("lightPos1Left", spotlightPos1Left);
         ourShader.setVec3("lightPos1Right", spotlightPos1Right);
         ourShader.setVec3("lightPos2Left", spotlightPos2Left);
@@ -187,12 +192,22 @@ int main()
         ourShader.setVec3("lightDir2Left", dir2);
         ourShader.setVec3("lightDir2Right", dir2);
 
-        ourShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-        ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
-        ourShader.setVec3("viewPos", cameraJugador1.Position);
-        ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
-        ourShader.setFloat("cutoff", glm::cos(glm::radians(12.5f)));
-        ourShader.setFloat("outerCutoff", glm::cos(glm::radians(17.5f)));
+        if (lightsOn) {
+            // Si las luces están encendidas, pasamos los valores correspondientes
+            ourShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+            ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
+            ourShader.setVec3("viewPos", cameraJugador1.Position);
+            ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+            ourShader.setFloat("cutoff", glm::cos(glm::radians(12.5f)));
+            ourShader.setFloat("outerCutoff", glm::cos(glm::radians(17.5f)));;
+        }
+        else {
+            // Si las luces están apagadas, no afectamos la escena
+            ourShader.setVec3("lightColor", glm::vec3(0.0f, 0.0f, 0.0f));  // No hay luz
+            ourShader.setFloat("cutoff", glm::cos(glm::radians(0.0f)));  // Sin luz
+            ourShader.setFloat("outerCutoff", glm::cos(glm::radians(0.0f)));  // Sin luz
+        }
+
 
         // Render modelos
         glm::mat4 model = glm::mat4(1.0f);
@@ -251,6 +266,8 @@ int main()
 
         projection = glm::perspective(glm::radians(cameraJugador2.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
         view = cameraJugador2.GetViewMatrix();
+
+        ourShader.use();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
@@ -264,12 +281,38 @@ int main()
         ourShader.setVec3("lightDir2Left", dir2);
         ourShader.setVec3("lightDir2Right", dir2);
 
-        ourShader.setVec3("lightColor", glm::vec3(0.1f, 0.1f, 0.1f));
-        ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
-        ourShader.setVec3("viewPos", cameraJugador2.Position);
-        ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
-        ourShader.setFloat("cutoff", glm::cos(glm::radians(12.5f)));
-        ourShader.setFloat("outerCutoff", glm::cos(glm::radians(17.5f)));
+
+        // Enviar datos de luces al shader
+        ourShader.setVec3("lightPos1Left", spotlightPos1Left);
+        ourShader.setVec3("lightPos1Right", spotlightPos1Right);
+        ourShader.setVec3("lightPos2Left", spotlightPos2Left);
+        ourShader.setVec3("lightPos2Right", spotlightPos2Right);
+        ourShader.setVec3("lightDir1Left", dir1);
+        ourShader.setVec3("lightDir1Right", dir1);
+        ourShader.setVec3("lightDir2Left", dir2);
+        ourShader.setVec3("lightDir2Right", dir2);
+
+        if (lightsOn) {
+            // Si las luces están encendidas, pasamos los valores correspondientes
+            ourShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+            ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
+            ourShader.setVec3("viewPos", cameraJugador2.Position);
+            ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+            ourShader.setFloat("cutoff", glm::cos(glm::radians(12.5f)));
+            ourShader.setFloat("outerCutoff", glm::cos(glm::radians(17.5f)));;
+        }
+        else {
+            // Si las luces están apagadas, no afectamos la escena
+            ourShader.setVec3("lightColor", glm::vec3(0.0f, 0.0f, 0.0f));  // No hay luz
+            ourShader.setFloat("cutoff", glm::cos(glm::radians(0.0f)));  // Sin luz
+            ourShader.setFloat("outerCutoff", glm::cos(glm::radians(0.0f)));  // Sin luz
+        }
+
+
+        
+
+////////////////////////////////////////////////////////////////////////////////////
+
 
         // Render modelos (otra vez, porque es otra vista)
         model = glm::mat4(1.0f);
@@ -371,6 +414,17 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_C) == GLFW_RELEASE)
     {
         cambiarVistaPresionado = false;
+    }
+
+
+	// Cambiar estado de luces al presionar 'F'
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && !toggleLightsPressed) {
+        lightsOn = !lightsOn;  // Cambia el estado de las luces
+        toggleLightsPressed = true;  // Evita que se cambie repetidamente mientras la tecla esté presionada
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE) {
+        toggleLightsPressed = false;  // Permite cambiar el estado nuevamente cuando se suelte la tecla
     }
 
 
