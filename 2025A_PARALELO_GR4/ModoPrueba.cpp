@@ -56,6 +56,26 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
+// Focos para el carro 1
+glm::vec3 spotlightPos1Left = carPosition1 + glm::vec3(-0.05f, 1.0f, 2.0f);  // Foco izquierdo en el carro 1
+glm::vec3 spotlightPos1Right = carPosition1 + glm::vec3(0.05f, 1.0f, 2.0f);  // Foco derecho en el carro 1
+
+// Focos para el carro 2
+glm::vec3 spotlightPos2Left = carPosition2 + glm::vec3(-1.0f, 1.0f, 2.0f);  // Foco izquierdo en el carro 2
+glm::vec3 spotlightPos2Right = carPosition2 + glm::vec3(1.0f, 1.0f, 2.0f);  // Foco derecho en el carro 2
+
+
+
+
+// Direcci鏮 del foco (hacia donde apunta la luz)
+glm::vec3 spotlightDir(0.0f, 0.0f, -1.0f);  // Apuntando hacia adelante
+
+// 聲gulo de corte (debe estar entre 0 y 1, donde 0 es totalmente concentrado)
+float spotlightCutoff = glm::cos(glm::radians(12.5f));   // 聲gulo de corte para el spotlight
+float spotlightOuterCutoff = glm::cos(glm::radians(17.5f)); // 聲gulo de atenuaci鏮 exterior
+
+
+
 // timing
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -105,7 +125,7 @@ int main()
     Model ourModelDRT("models/DRT/DriftTrack3.obj");
     Model ourModelnebula("models/nebula/Sin_nombre.obj");
     Model ourModelVehiculo1("models/carro1/carro1.obj");
-	Model ourModelVehiculo2("models/carro2/carro1.obj");
+    Model ourModelVehiculo2("models/carro2/carro1.obj");
 
 
     // render loop
@@ -120,7 +140,7 @@ int main()
         processInput(window);
 
         // render
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // usar shader
@@ -171,17 +191,40 @@ int main()
             cameraJugador1.Front = glm::normalize(carPosition1 - cameraJugador1.Position); // sigue mirando al carro
         }
         cameraJugador1.Up = glm::vec3(0.0f, 1.0f, 0.0f);
-        
-        
-        
+
+
+
         glm::mat4 projection = glm::perspective(glm::radians(cameraJugador1.Zoom), (float)(SCR_WIDTH / 2) / (float)SCR_HEIGHT, 0.08f, 300.0f);
         glm::mat4 view = cameraJugador1.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-        ourShader.setVec3("lightColor", glm::vec3(0.2f, 0.2f, 0.4f));
+        ourShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
         ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
         ourShader.setVec3("viewPos", cameraJugador1.Position);
         ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
+
+
+        // Dentro del ciclo de renderizado (antes de enviar las posiciones al shader)
+        spotlightPos1Left = carPosition1 + glm::vec3(-2.0f, 1.0f, 2.0f);  // Foco izquierdo carro 1
+        spotlightPos1Right = carPosition1 + glm::vec3(2.0f, 1.0f, 2.0f);  // Foco derecho carro 1
+
+        spotlightPos2Left = carPosition2 + glm::vec3(-2.0f, 1.0f, 2.0f);  // Foco izquierdo carro 2
+        spotlightPos2Right = carPosition2 + glm::vec3(2.0f, 1.0f, 2.0f);  // Foco derecho carro 2
+
+
+
+        // Enviar las 4 posiciones de las luces al shader
+        ourShader.setVec3("lightPos1Left", spotlightPos1Left);  // Foco izquierdo carro 1
+        ourShader.setVec3("lightPos1Right", spotlightPos1Right);  // Foco derecho carro 1
+
+        ourShader.setVec3("lightPos2Left", spotlightPos2Left);  // Foco izquierdo carro 2
+        ourShader.setVec3("lightPos2Right", spotlightPos2Right);  // Foco derecho carro 2
+
+        ourShader.setVec3("lightDirection", spotlightDir);  // Direcci鏮 de los focos
+        ourShader.setFloat("cutoff", spotlightCutoff);  // 聲gulo de corte
+        ourShader.setFloat("outerCutoff", spotlightOuterCutoff); // 聲gulo de atenuaci鏮 exterior
+
+
 
 
         // Render modelos
@@ -263,7 +306,7 @@ int main()
         view = cameraJugador2.GetViewMatrix();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
-        ourShader.setVec3("lightColor", glm::vec3(0.2f, 0.2f, 0.4f));
+        ourShader.setVec3("lightColor", glm::vec3(0.1f, 0.1f, 0.1f));
         ourShader.setVec3("lightPos", glm::vec3(0.0f, 10.0f, 0.0f));
         ourShader.setVec3("viewPos", cameraJugador2.Position);
         ourShader.setVec3("emissionColor", glm::vec3(0.5f, 0.5f, 0.5f));
@@ -359,8 +402,8 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-	// Cambiar vista al presionar 'C' (cambiar entre primera y tercera persona)
-    
+    // Cambiar vista al presionar 'C' (cambiar entre primera y tercera persona)
+
     if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && !cambiarVistaPresionado)
     {
         // Cambiar vista para el jugador 1
@@ -376,8 +419,8 @@ void processInput(GLFWwindow* window)
     {
         cambiarVistaPresionado = false;
     }
-    
-   
+
+
     // Controles jugador 1 - WASD
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         carSpeed1 += acceleration * deltaTime;
