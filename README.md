@@ -37,13 +37,13 @@ Aplicar los conocimientos adquiridos sobre gráficos por computadora en la creac
 
 **"Carrera Nocturna: El Desafío Final"**
 
-En un futuro cercano, donde la tecnología y las carreras se fusionan de una manera inusitada, surge una nueva modalidad de competencias: las **Carreras Nocturnas**. Esta vez, no solo se trata de velocidad, sino de habilidad, reflejos y estrategia, mientras los corredores compiten a través de una pista iluminada solo por las luces de sus vehículos y las sombras de la ciudad futurista que los rodea.
+En un escenario natural, rodeado por la oscuridad de un frondoso bosque, se lleva a cabo una de las competencias de carreras más emocionantes. **Carrera Nocturna** es una competencia donde los jugadores controlan vehículos de alta gama, especialmente diseñados para enfrentar la oscuridad de la noche con potentes luces y tecnologías avanzadas.
 
-Los jugadores controlarán dos vehículos de carreras de alta gama, equipados con tecnología avanzada para maniobras extremas. **El desafío** no es solo llegar a la meta, sino **dominar dos perspectivas de conducción**: una desde una vista aérea que permite un control preciso y una vista en primera persona para una experiencia inmersiva. Los pilotos deben superar obstáculos, competir contra el tiempo y, lo más importante, **superar a su oponente** en una carrera frenética llena de emoción.
+La pista, aunque no tiene obstáculos estáticos, está llena de **desafíos dinámicos** que surgen cuando los jugadores se enfrentan entre sí en un circuito sinuoso rodeado por árboles y sombras, haciendo que la visibilidad sea limitada. El principal desafío no es solo llegar a la meta, sino **competir contra otro jugador** mientras se evitan choques y se aprovechan las ventajas de cada perspectiva.
 
-La pista es un **laberinto 3D** diseñado para poner a prueba los límites de la física y la velocidad, mientras los jugadores se enfrentan en un entorno visualmente impresionante que integra **luces puntuales** (para cada carro) y **efectos de luces flash** que simulan la dinámica de las luces de la ciudad. Todo esto acompañado de una **atmósfera nocturna** que pondrá a prueba no solo la destreza, sino también la capacidad de adaptación de los pilotos.
+Los jugadores tendrán dos opciones de vista durante la carrera: una **vista aérea** que ofrece control total sobre el vehículo y permite ver todo el recorrido, y una **vista en primera persona** para sumergirse completamente en la experiencia de la carrera y sentir la adrenalina al máximo. La dinámica de las luces de cada vehículo y las sombras del bosque crean una atmósfera única y misteriosa que agrega tensión al ritmo rápido de la competencia.
 
-> **"Solo aquellos que se atrevan a desafiar las sombras podrán conquistar la pista y ser coronados campeones del futuro."**
+> **"Solo los más audaces podrán atravesar la pista y sobrevivir al desafío nocturno, superando a su oponente en una carrera de reflejos y estrategia."**
 
 ---
 
